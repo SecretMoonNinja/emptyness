@@ -1,0 +1,127 @@
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "";
+$dbname = "registration_test";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Prepare and bind
+$stmt = $conn->prepare("INSERT INTO registration (firstname, lastname) VALUES (?, ?)");
+$stmt->bind_param("ss", $firstname, $lastname);
+
+// Set parameters and execute
+$firstname = $_POST['firstname'];
+$lastname = $_POST['lastname'];
+$stmt->execute();
+
+echo "New records created successfully";
+
+$stmt->close();
+$conn->close();
+?>
+
+
+
+
+
+<details id="child6" style="display:none;">
+    <summary>
+        <div style="display: flex; align-items: center;">
+            <i id="accordian_arrow" class='bx bxs-down-arrow bx-tada'></i>
+            <h2 style="display: inline;">Child 6 Information: <span class="required">*</span></h2>
+        </div>
+    </summary>
+    <h4>Name:</h4>
+    <div class="input-box">
+        <div class="input-field">
+            <input type="text" placeholder="First Name" id="cf6name" name="cf6name" required ">
+            <label for="cf6name">First Name <span class="required">*</span></label>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-field">
+            <input type="text" placeholder="Middle Name" id="cm6name" name="cm6name">
+            <label for="cm6name">Middle Name</label>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-field">
+            <input type="text" placeholder="Last Name" id="cl6name" name="cl6name" required>
+            <label for="cl6name">Last Name <span class="required">*</span></label>
+            <i class='bx bxs-user'></i>
+        </div>
+    </div>
+    <div class="input-box">
+        <div class="input-field">
+            <h4>Date of Birth: <span class="required">*</span></h4>
+            <input style="padding-left: 15px;" type="date" id="bod6" name="bod6">
+        </div>
+        <div class="input-field">
+            <h4>Gender: <span class="required">*</span></h4>
+            <select id="gender6" name="gender6" required>
+                <option value="" disabled selected>Please Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <br>
+            <h4>Grade in 2023-2024: <span class="required">*</span></h4>
+            <select id="grade6" name="grade6" required>
+                <option value="" disabled selected>Please Select</option>
+                <option value="0">KG</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <br>
+            <h4>Enter Allergies If Any: <span class="required">*</span></h4>
+            <input style="padding-left: 15px;" type="text" placeholder="Allergies" id="allergies6" name="allergies6" >
+            <label for="allergies6">Do not enter anything if none</label>
+        </div>
+        
+        <div class="input-field">
+            <br><br>
+            <h4>Enter Special Needs If Any: <span class="required">*</span></h4>
+            <input style="padding-left: 15px;" type="text" placeholder="Special Needs" id="needs6" name="needs6" >
+            <label for="needs6">Do not enter anything if none</label>
+        </div>
+    </div>
+    <br><br><br>
+    <br><hr><br>
+</details>
