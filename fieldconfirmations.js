@@ -248,21 +248,10 @@ function checkEmails(emailFieldId, confirmedEmailFieldId, icon1Id, icon2Id, pare
     var icon2 = document.getElementById(icon2Id);
 
     // Create a RegExp object with your regex
-    var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
+    var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z.]{2,}$');
 
     // Check if the emails match and if they match the regex
-    if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
-        // Set the border and background color to red
-        emailField.style.borderColor = 'red';
-        emailField1.style.borderColor = 'red';
-        emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        icon1.className = 'bx bx-x bx-flashing';
-        icon2.className = 'bx bx-x bx-flashing';
-        window[parentEmailVar] = false;
-        window[parentEmailConfirmedVar] = false;
-        checkVariables();
-    } else {
+    if(email == confirmedEmail && regex.test(email) && regex.test(confirmedEmail)) {
         emailField.style.borderColor = 'green';
         emailField.style.backgroundColor = 'transparent';
         emailField1.style.borderColor = 'green';
@@ -272,7 +261,41 @@ function checkEmails(emailFieldId, confirmedEmailFieldId, icon1Id, icon2Id, pare
         window[parentEmailVar] = true;
         window[parentEmailConfirmedVar] = true;
         checkVariables();
+    }else{
+        emailField.style.borderColor = 'red';
+        emailField1.style.borderColor = 'red';
+        emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+        emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+        icon1.className = 'bx bx-x bx-flashing';
+        icon2.className = 'bx bx-x bx-flashing';
+        window[parentEmailVar] = false;
+        window[parentEmailConfirmedVar] = false;
+        checkVariables();
     }
+    // if (email != confirmedEmail ) {
+    //     // Set the border and background color to red
+    //     emailField.style.borderColor = 'red';
+    //     emailField1.style.borderColor = 'red';
+    //     emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+    //     emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+    //     icon1.className = 'bx bx-x bx-flashing';
+    //     icon2.className = 'bx bx-x bx-flashing';
+    //     window[parentEmailVar] = false;
+    //     window[parentEmailConfirmedVar] = false;
+    //     checkVariables();
+    // }else if (!regex.test(email) || !regex.test(confirmedEmail)){
+    //     emailField.style.borderColor = 'red';
+    //     emailField1.style.borderColor = 'red';
+    //     emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+    //     emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+    //     icon1.className = 'bx bx-x bx-flashing';
+    //     icon2.className = 'bx bx-x bx-flashing';
+    //     window[parentEmailVar] = false;
+    //     window[parentEmailConfirmedVar] = false;
+    //     checkVariables();
+    // }else {
+        
+    // }
 }
 
 // Add event listeners to the fields
