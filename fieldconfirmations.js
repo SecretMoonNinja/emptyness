@@ -24,79 +24,106 @@ var zip                   = false;
 var enrollmentDay         = false;
 var childrenEnrolled      = false;
 
-// ================================================
-// =================== PARENT 1 ===================
-// ================================================
-// Parent 1 - First Name
 var f1name = document.getElementById('f1name');
-function checkparent1Fname() {
-    if (f1name.value === '') {
-        f1name.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        parent1Fname = false;
-        checkVariables();
-    } else {
-        f1name.style.border = '2px solid green';
-        parent1Fname = true;
-        checkVariables();
-    }
-}
-f1name.addEventListener('focus', checkparent1Fname);
-f1name.addEventListener('input', checkparent1Fname);
-
-// Parent 1 - Last Name
+var f1mname = document.getElementById('m1name');
 var f1lname = document.getElementById('l1name');
-function checkparent1Lname() {
-    if (f1lname.value === '') {
-        f1lname.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        parent1Lname = false;
-        checkVariables();
+
+var f2name = document.getElementById('f2name');
+var f2mname = document.getElementById('m2name');
+var f2lname = document.getElementById('l2name');
+
+var street = document.getElementById('street_address');
+var street2 = document.getElementById('street_address2');
+var city_line = document.getElementById('city');
+var state_line = document.getElementById('state');
+var zip_line = document.getElementById('zipcode');
+
+var enrollmentDay_Line = document.getElementById('enrollmentday');
+var enrollmentChildren = document.getElementById('childrenenrolled');
+
+// Define a function to check the value of a field
+function checkField(field, fieldName) {
+    if (field.value === '') {
+        field.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+        field.style.border = '2px solid red';
+        window[fieldName] = false;
     } else {
-        f1lname.style.border = '2px solid green';
-        parent1Lname = true;
-        checkVariables();
+        field.style.border = '2px solid green';
+        field.style.backgroundColor = 'transparent';
+        window[fieldName] = true;
     }
+    checkVariables();
 }
-f1lname.addEventListener('focus', checkparent1Lname);
-f1lname.addEventListener('input', checkparent1Lname);
 
-// Parent 1 - Email
-var email1 = document.getElementById('email1');
-function checkEmails() {
-    var email = document.getElementById('email1').value;
-    var confirmedEmail = document.getElementById('email_confirmed1').value;
-    var emailField1 = document.getElementById('email1');
-    var emailField = document.getElementById('email_confirmed1');
-    var icon1 = document.getElementById('icon1');
-    var icon2 = document.getElementById('icon2');
-
-    // Create a RegExp object with your regex
-    var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
-
-    // Check if the emails match and if they match the regex
-    if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
-        // Set the border and background color to red
-        emailField.style.borderColor = 'red';
-        emailField1.style.borderColor = 'red';
-        emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        icon1.className = 'bx bx-x bx-flashing';
-        icon2.className = 'bx bx-x bx-flashing';
-        parent1Email = false;
-        parent1EmailConfirmed = false;
-        checkVariables();
-    } else {
-        emailField.style.borderColor = 'green';
-        emailField.style.backgroundColor = 'transparent';
-        emailField1.style.borderColor = 'green';
-        emailField1.style.backgroundColor = 'transparent';
-        icon1.className = 'bx bxs-envelope';
-        icon2.className = 'bx bxs-envelope';
-        parent1Email = true;
-        parent1EmailConfirmed = true;
-        checkVariables();
-    }
+// Define a function to add event listeners to a field
+function addListeners(field, fieldName, events) {
+    events.forEach(function(event) {
+        field.addEventListener(event, function() { checkField(field, fieldName); });
+    });
 }
-email1.addEventListener('focus', checkEmails);
+
+// Add event listeners to the fields
+addListeners(f1name, 'parent1Fname', ['focus', 'input']);
+addListeners(f1lname, 'parent1Lname', ['focus', 'input']);
+addListeners(f2name, 'parent2Fname', ['focus', 'input']);
+addListeners(f2lname, 'parent2Lname', ['focus', 'input']);
+addListeners(street, 'streetAddress', ['focus', 'input']);
+addListeners(city_line, 'city', ['focus', 'input']);
+addListeners(state_line, 'state', ['focus','input']);
+addListeners(zip_line, 'zip', ['focus', 'input']);
+addListeners(enrollmentDay_Line, 'enrollmentDay', ['focus','input']);
+addListeners(enrollmentChildren, 'childrenEnrolled', ['focus','input']);
+
+
+
+// Add 'focus' event listener to 'f1mname' and 'f2mname' fields
+[f1mname, f2mname, street2].forEach(function(field) {
+    field.addEventListener('focus', function() {
+        this.style.border = '2px solid green';
+    });
+});
+
+
+// // Parent 1 - Email
+// var email1 = document.getElementById('email1');
+// var email_confirm1 = document.getElementById('email_confirmed1');
+// function checkEmails() {
+//     var email = document.getElementById('email1').value;
+//     var confirmedEmail = document.getElementById('email_confirmed1').value;
+//     var emailField1 = document.getElementById('email1');
+//     var emailField = document.getElementById('email_confirmed1');
+//     var icon1 = document.getElementById('icon1');
+//     var icon2 = document.getElementById('icon2');
+
+//     // Create a RegExp object with your regex
+//     var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
+
+//     // Check if the emails match and if they match the regex
+//     if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
+//         // Set the border and background color to red
+//         emailField.style.borderColor = 'red';
+//         emailField1.style.borderColor = 'red';
+//         emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+//         emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+//         icon1.className = 'bx bx-x bx-flashing';
+//         icon2.className = 'bx bx-x bx-flashing';
+//         parent1Email = false;
+//         parent1EmailConfirmed = false;
+//         checkVariables();
+//     } else {
+//         emailField.style.borderColor = 'green';
+//         emailField.style.backgroundColor = 'transparent';
+//         emailField1.style.borderColor = 'green';
+//         emailField1.style.backgroundColor = 'transparent';
+//         icon1.className = 'bx bxs-envelope';
+//         icon2.className = 'bx bxs-envelope';
+//         parent1Email = true;
+//         parent1EmailConfirmed = true;
+//         checkVariables();
+//     }
+// }
+// email1.addEventListener('focus', checkEmails);
+// email_confirm1.addEventListener('focus', checkEmails);
 
 // Parent 1 - Phone
 // var phone1 = document.getElementById('phone_number1');
@@ -131,89 +158,52 @@ function phoneFormat1(input) {
         parent1Phone = true;
         checkVariables();
     }
-
     return input;
 }
 // phone1.addEventListener('focus', phoneFormat1);
 
-// ================================================
-// =================== PARENT 2 ===================
-// ================================================
-// Parent 2 - First Name
-var f2name = document.getElementById('f2name');
-function checkparent2Fname() {
-    if (f2name.value === '') {
-        f2name.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        parent2Fname = false;
-        checkVariables();
-    }
-    else {
-        f2name.style.border = '2px solid green';
-        parent2Fname = true;
-        checkVariables();
-    }
-}
-f2name.addEventListener('focus', checkparent2Fname);
-f2name.addEventListener('input', checkparent2Fname);
+// // Parent 2 - Email
+// var email2 = document.getElementById('email2');
+// var email_confirm2 = document.getElementById('email_confirmed2');
+// function checkEmails2() {
+//     var email = document.getElementById('email2').value;
+//     var confirmedEmail = document.getElementById('email_confirmed2').value;
+//     var emailField1 = document.getElementById('email2');
+//     var emailField = document.getElementById('email_confirmed2');
+//     var icon1 = document.getElementById('icon12');
+//     var icon2 = document.getElementById('icon22');
 
-// Parent 2 - Last Name
-var f2lname = document.getElementById('l2name');
-function checkparent2Lname() {
-    if (f2lname.value === '') {
-        f2lname.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        parent2Lname = false;
-        checkVariables();
-    }
-    else {
-        f2lname.style.border = '2px solid green';
-        parent2Lname = true;
-        checkVariables();
-    }
-}
-f2lname.addEventListener('focus', checkparent2Lname);
-f2lname.addEventListener('input', checkparent2Lname);
+//     // Create a RegExp object with your regex
+//     var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
 
-// Parent 2 - Email
-var email2 = document.getElementById('email_confirmed1');
-function checkEmails2() {
-    var email = document.getElementById('email2').value;
-    var confirmedEmail = document.getElementById('email_confirmed2').value;
-    var emailField1 = document.getElementById('email2');
-    var emailField = document.getElementById('email_confirmed2');
-    var icon1 = document.getElementById('icon12');
-    var icon2 = document.getElementById('icon22');
-
-    // Create a RegExp object with your regex
-    var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
-
-    // Check if the emails match and if they match the regex
-    if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
-        // Set the border and background color to red
-        emailField.style.borderColor = 'red';
-        emailField1.style.borderColor = 'red';
-        emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
-        icon1.className = 'bx bx-x bx-flashing';
-        icon2.className = 'bx bx-x bx-flashing';
-        parent2Email = false;
-        parent2EmailConfirmed = false;
-        checkVariables();
-    } else {
-        emailField.style.borderColor = 'green';
-        emailField.style.backgroundColor = 'transparent';
-        emailField1.style.borderColor = 'green';
-        emailField1.style.backgroundColor = 'transparent';
-        icon1.className = 'bx bxs-envelope';
-        icon2.className = 'bx bxs-envelope';
-        parent2Email = true;
-        parent2EmailConfirmed = true;
-        checkVariables();
-    }
-}
-email2.addEventListener('focus', checkEmails2);
+//     // Check if the emails match and if they match the regex
+//     if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
+//         // Set the border and background color to red
+//         emailField.style.borderColor = 'red';
+//         emailField1.style.borderColor = 'red';
+//         emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+//         emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+//         icon1.className = 'bx bx-x bx-flashing';
+//         icon2.className = 'bx bx-x bx-flashing';
+//         parent2Email = false;
+//         parent2EmailConfirmed = false;
+//         checkVariables();
+//     } else {
+//         emailField.style.borderColor = 'green';
+//         emailField.style.backgroundColor = 'transparent';
+//         emailField1.style.borderColor = 'green';
+//         emailField1.style.backgroundColor = 'transparent';
+//         icon1.className = 'bx bxs-envelope';
+//         icon2.className = 'bx bxs-envelope';
+//         parent2Email = true;
+//         parent2EmailConfirmed = true;
+//         checkVariables();
+//     }
+// }
+// email2.addEventListener('focus', checkEmails2);
+// email_confirm2.addEventListener('focus', checkEmails2);
 
 // Parent 2 - Phone
-var phone2 = document.getElementById('phone_number2');
 function phoneFormat2(input) {
     // Remove all non-digit characters
     input = input.replace(/\D/g,'');
@@ -248,106 +238,48 @@ function phoneFormat2(input) {
 
     return input;
 }
-phone2.addEventListener('focus', phoneFormat2);
 
-// =======================================================
-// =================== MAILING ADDRESS ===================
-// =======================================================
-// Street Address
-var street = document.getElementById('street_address');
-function checkStreetAddress() {
-    if (street.value === '') {
-        street.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        streetAddress = false;
+function checkEmails(emailFieldId, confirmedEmailFieldId, icon1Id, icon2Id, parentEmailVar, parentEmailConfirmedVar) {
+    var email = document.getElementById(emailFieldId).value;
+    var confirmedEmail = document.getElementById(confirmedEmailFieldId).value;
+    var emailField1 = document.getElementById(emailFieldId);
+    var emailField = document.getElementById(confirmedEmailFieldId);
+    var icon1 = document.getElementById(icon1Id);
+    var icon2 = document.getElementById(icon2Id);
+
+    // Create a RegExp object with your regex
+    var regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$');
+
+    // Check if the emails match and if they match the regex
+    if (email != confirmedEmail || !regex.test(email) || !regex.test(confirmedEmail)) {
+        // Set the border and background color to red
+        emailField.style.borderColor = 'red';
+        emailField1.style.borderColor = 'red';
+        emailField.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+        emailField1.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+        icon1.className = 'bx bx-x bx-flashing';
+        icon2.className = 'bx bx-x bx-flashing';
+        window[parentEmailVar] = false;
+        window[parentEmailConfirmedVar] = false;
         checkVariables();
     } else {
-        street.style.border = '2px solid green';
-        streetAddress = true;
+        emailField.style.borderColor = 'green';
+        emailField.style.backgroundColor = 'transparent';
+        emailField1.style.borderColor = 'green';
+        emailField1.style.backgroundColor = 'transparent';
+        icon1.className = 'bx bxs-envelope';
+        icon2.className = 'bx bxs-envelope';
+        window[parentEmailVar] = true;
+        window[parentEmailConfirmedVar] = true;
         checkVariables();
     }
 }
-street.addEventListener('focus', checkStreetAddress);
-street.addEventListener('input', checkStreetAddress);
 
-// City
-var city_line = document.getElementById('city');
-function checkCity() {
-    if (city_line.value === '') {
-        city_line.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        city = false;
-        checkVariables();
-    } else {
-        city_line.style.border = '2px solid green';
-        city = true;
-        checkVariables();
-    }
-}
-city_line.addEventListener('focus', checkCity);
-city_line.addEventListener('input', checkCity);
-
-// State
-var state_line = document.getElementById('state');
-function checkState() {
-    if (state_line.value === '') {
-        state_line.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        state = false;
-        checkVariables();
-    } else {
-        state_line.style.border = '2px solid green';
-        state = true;
-        checkVariables();
-    }
-}
-state_line.addEventListener('input', checkState);
-
-// Zip Code
-var zip_line = document.getElementById('zipcode');
-function checkZip() {
-    if (zip_line.value === '') {
-        zip_line.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        zip = false;
-        checkVariables();
-    } else {
-        zip_line.style.border = '2px solid green';
-        zip = true;
-        checkVariables();
-    }
-}
-zip_line.addEventListener('focus', checkZip);
-zip_line.addEventListener('input', checkZip);
-
-// ==================================================
-// =================== ENROLLMENT ===================
-// ==================================================
-// Enrollment Day
-var enrollmentDay_Line = document.getElementById('enrollmentday');
-function checkEnrollmentDay(){
-    if (enrollmentDay_Line.value === '') {
-        enrollmentDay_Line.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        enrollmentDay = false;
-        checkVariables();
-    } else {
-        enrollmentDay_Line.style.border = '2px solid green';
-        enrollmentDay = true;
-        checkVariables();
-    }
-}
-enrollmentDay_Line.addEventListener('input', checkEnrollmentDay);
-
-// Children Enrolled
-var enrollmentChildren = document.getElementById('childrenenrolled');
-function checkEnrollmentChildren(){
-    if (enrollmentChildren.value === '') {
-        enrollmentChildren.style.border = '2px solid rgba(160, 15, 15, 0.806)';
-        childrenEnrolled = false;
-        checkVariables();
-    } else {
-        enrollmentChildren.style.border = '2px solid green';
-        childrenEnrolled = true;
-        checkVariables();
-    }
-}
-enrollmentChildren.addEventListener('input', checkEnrollmentChildren);
+// Add event listeners to the fields
+document.getElementById('email1').addEventListener('focus', function() { checkEmails('email1', 'email_confirmed1', 'icon1', 'icon2', 'parent1Email', 'parent1EmailConfirmed'); });
+document.getElementById('email_confirmed1').addEventListener('focus', function() { checkEmails('email1', 'email_confirmed1', 'icon1', 'icon2', 'parent1Email', 'parent1EmailConfirmed'); });
+document.getElementById('email2').addEventListener('focus', function() { checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed'); });
+document.getElementById('email_confirmed2').addEventListener('focus', function() { checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed'); });
 
 
 

@@ -30,7 +30,7 @@ var parentinfo1 = document.getElementById('parentinfo1');
 var requiredFields = [f1name, l1name, email1, email_confirmed1, phone_number1];
 
 // function to check if all required fields are filled out
-function checkFields() {
+function check_Field_Childrens() {
   for (var i = 0; i < requiredFields.length; i++) {
     if (requiredFields[i].value === '') {
       parentinfo1.style.border = '2px solid rgba(160, 15, 15, 0.806)';
@@ -42,7 +42,7 @@ function checkFields() {
 
 // add event listeners to the fields
 for (var i = 0; i < requiredFields.length; i++) {
-  requiredFields[i].addEventListener('input', checkFields);
+  requiredFields[i].addEventListener('input', check_Field_Childrens);
 }
 */
 
@@ -86,7 +86,7 @@ function fillParent2Info() {
     }
 }
 
-
+/*
 
 
 // function showChildren() {
@@ -150,6 +150,32 @@ function fillParent2Info() {
 //         }
 //     }
 // }
+*/
+
+// function showChildren() {
+//     var numChildren = document.getElementById('childrenenrolled').value;
+//     var fields = ['Fname', 'Lname', 'DOB', 'Gender', 'Grade', 'Allergies', 'Needs'];
+    
+//     for (var i = 1; i <= 6; i++) {
+//         // Hide all children divs initially
+//         document.getElementById('child' + i).style.display = 'none';
+        
+//         // Remove 'required' attribute from all fields
+//         fields.forEach(function(field) {
+//             document.getElementById('child' + field + i).removeAttribute('required');
+//         });
+//     }
+    
+//     for (var i = 1; i <= numChildren; i++) {
+//         // Show the selected number of child divs
+//         document.getElementById('child' + i).style.display = 'block';
+        
+//         // Add 'required' attribute to necessary fields
+//         ['Fname', 'Lname', 'DOB', 'Gender', 'Grade'].forEach(function(field) {
+//             document.getElementById('child' + field + i).setAttribute('required', '');
+//         });
+//     }
+// }
 
 function showChildren() {
     var numChildren = document.getElementById('childrenenrolled').value;
@@ -161,7 +187,10 @@ function showChildren() {
         
         // Remove 'required' attribute from all fields
         fields.forEach(function(field) {
-            document.getElementById('child' + field + i).removeAttribute('required');
+            var elem = document.getElementById('child' + field + i);
+            elem.removeAttribute('required');
+            elem.removeEventListener('focus', check_Field_Children);
+            elem.removeEventListener('input', check_Field_Children);
         });
     }
     
@@ -171,11 +200,31 @@ function showChildren() {
         
         // Add 'required' attribute to necessary fields
         ['Fname', 'Lname', 'DOB', 'Gender', 'Grade'].forEach(function(field) {
-            document.getElementById('child' + field + i).setAttribute('required', '');
+            var elem = document.getElementById('child' + field + i);
+            elem.setAttribute('required', '');
+            elem.addEventListener('focus', check_Field_Children);
+            elem.addEventListener('input', check_Field_Children);
+        });
+
+        // For 'Allergies' and 'Needs', turn green on focus
+        ['Mname', 'Allergies', 'Needs'].forEach(function(field) {
+            var elem = document.getElementById('child' + field + i);
+            elem.addEventListener('focus', function() {
+                this.style.border = '2px solid green';
+            });
         });
     }
 }
 
+function check_Field_Children() {
+    if (this.value === '') {
+        this.style.border = '2px solid red';
+        this.style.backgroundColor = 'rgba(250, 168, 178, 0.5)';
+    } else {
+        this.style.border = '2px solid green';
+        this.style.backgroundColor = 'transparent';
+    }
+}
 
 
 paypal.Buttons({

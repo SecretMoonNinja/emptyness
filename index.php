@@ -96,17 +96,17 @@
                 <h3>Contact Info:</h3>
                 <div class="input-box">
                     <div class="input-field">
-                        <input type="email" placeholder="Email" id="email1" name="email1" required oninput="checkEmails()">
+                        <input type="email" placeholder="Email" id="email1" name="email1" required oninput="checkEmails('email1', 'email_confirmed1', 'icon1', 'icon2', 'parent1Email', 'parent1EmailConfirmed')">
                         <label for="email1">E-mail <span class="required">*</span></label>
                         <i id="icon1" class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-field">
-                        <input type="email" placeholder="Confirm Email" id="email_confirmed1" name="email_confirmed1" required oninput="checkEmails()">
+                        <input type="email" placeholder="Confirm Email" id="email_confirmed1" name="email_confirmed1" required oninput="checkEmails('email1', 'email_confirmed1', 'icon1', 'icon2', 'parent1Email', 'parent1EmailConfirmed')">
                         <label for="email_confirmed1">Comfirm Email <span class="required">*</span></label>
                         <i id="icon2" class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-field">
-                        <input type="tel" onfocus="this.value = phoneFormat1(this.value)" placeholder="Phone Number" id="phone_number1" name="phone_number1" required>
+                        <input type="tel" onfocus="this.value = phoneFormat1(this.value)" oninput="this.value = phoneFormat1(this.value)" placeholder="Phone Number" id="phone_number1" name="phone_number1" required>
                         <label for="phone_number1">Phone Number <span class="required">*</span></label>
                         <i id="phone1" class='bx bxs-phone'></i>
                     </div>
@@ -148,17 +148,17 @@
                 <h3>Contact Info:</h3>
                 <div class="input-box">
                     <div class="input-field">
-                        <input type="email" placeholder="Email" id="email2" name="email2" required oninput="checkEmails2()">
+                        <input type="email" placeholder="Email" id="email2" name="email2" required oninput="checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed')">
                         <label for="email2">E-mail <span class="required">*</span></label>
                         <i id="icon12" class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-field">
-                        <input type="email" placeholder="Confirm Email" id="email_confirmed2" name="email_confirmed2" required oninput="checkEmails2()">
+                        <input type="email" placeholder="Confirm Email" id="email_confirmed2" name="email_confirmed2" required oninput="checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed')">
                         <label for="email_confirmed2">Comfirm Email <span class="required">*</span></label>
                         <i id="icon22" class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-field">
-                        <input type="tel" onInput="this.value = phoneFormat2(this.value)" placeholder="Phone Number" id="phone_number2" name="phone_number2" required >
+                        <input type="tel" onfocus="this.value = phoneFormat2(this.value)" oninput="this.value = phoneFormat2(this.value)" placeholder="Phone Number" id="phone_number2" name="phone_number2" required >
                         <label for="phone_number2">Phone Number<span class="required">*</span></label>
                         <i id="phone2" class='bx bxs-phone'></i>
                     </div>
@@ -200,7 +200,7 @@
                     </div> -->
                     <div class="input-field">
                         <select id="state" name="state" required>
-                            <option disabled>Select</option>
+                            <option disabled value="">Select</option>
                             <option value="NJ">New Jersey</option>
                             <option value="PA">Pennsylvania</option>
                             <option value="NY">New York</option>
