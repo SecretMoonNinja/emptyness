@@ -60,27 +60,46 @@ function showMessage(paymentOption) {
 // Fills the information for Parent 2 (if single parent)
 function fillParent2Info() {
     if (document.getElementById('sameAsParent1').checked) {
-        document.getElementById('f2name').value = document.getElementById('f1name').value;
-        checkparent2Fname()
-        document.getElementById('m2name').value = document.getElementById('m1name').value;
-        document.getElementById('l2name').value = document.getElementById('l1name').value;
-        checkparent2Lname()
-        document.getElementById('email2').value = document.getElementById('email1').value;
-        checkEmails2()
-        document.getElementById('email_confirmed2').value = document.getElementById('email_confirmed1').value;
-        checkEmails2()
+        f2name = document.getElementById('f2name');
+        f2name.value = document.getElementById('f1name').value;
+        checkField(f2name, 'parent1Fname')
+
+        f2mname = document.getElementById('m2name');
+        f2mname.value = document.getElementById('m1name').value;
+        f2mname.style.border = '2px solid green';
+
+        f2lname = document.getElementById('l2name');
+        f2lname.value = document.getElementById('l1name').value;
+        checkField(f2lname, 'parent1Lname')
+        
+        email2 = document.getElementById('email2');
+        email2.value = document.getElementById('email1').value;
+        checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed');
+
+        email_confirmed2 = document.getElementById('email_confirmed2');
+        email_confirmed2.value = document.getElementById('email_confirmed1').value;
+        checkEmails('email2', 'email_confirmed2', 'icon12', 'icon22', 'parent2Email', 'parent2EmailConfirmed');
+
+        // phone_number2 = document.getElementById('phone_number2');
+        // phone_number2.value = document.getElementById('phone_number1').value;
+        // checkField(phone_number2, 'parent1Phone')
+
+        // document.getElementById('email2').value = document.getElementById('email1').value;
+        // // checkEmails2()
+        // document.getElementById('email_confirmed2').value = document.getElementById('email_confirmed1').value;
+        // // checkEmails2()
         document.getElementById('phone_number2').value = phoneFormat2(document.getElementById('phone_number1').value);
         
     } else {
         document.getElementById('f2name').value = '';
-        checkparent2Fname()
+        // checkparent2Fname()
         document.getElementById('m2name').value = '';
         document.getElementById('l2name').value = '';
-        checkparent2Lname()
+        // checkparent2Lname()
         document.getElementById('email2').value = '';
-        checkEmails2()
+        // checkEmails2()
         document.getElementById('email_confirmed2').value = '';
-        checkEmails2()
+        // checkEmails2()
         document.getElementById('phone_number2').value = '';
         phoneFormat2('')
     }
