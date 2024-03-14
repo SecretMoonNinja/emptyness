@@ -6,6 +6,7 @@ var ENROLLMENT_CHECK = document.getElementById("enrollment");
 var Parent1_Info_Complete = false;
 var Parent2_Info_Complete = false;
 var Mailing_Info_Complete = false;
+var Enrollment_Children_Info_Complete = false;
 
 var parent1Fname = false;
 var parent1Lname = false;
@@ -67,8 +68,8 @@ function addListeners(field, fieldName, events) {
 // Add event listeners to the fields
 addListeners(f1name, "parent1Fname", ["focus", "input"]);
 addListeners(f1lname, "parent1Lname", ["focus", "input"]);
-addListeners(f2name, "parent2Fname", ["focus", "input"]);
-addListeners(f2lname, "parent2Lname", ["focus", "input"]);
+addListeners(f2name, "parent2Fname", ["focus", "input", "change"]);
+addListeners(f2lname, "parent2Lname", ["focus", "input", "change"]);
 addListeners(street, "streetAddress", ["focus", "input"]);
 addListeners(city_line, "city", ["focus", "input"]);
 addListeners(state_line, "state", ["focus", "input"]);
@@ -260,40 +261,65 @@ document
 
 // function to check if all variables are true to turn main borders green
 function checkVariables() {
-	if (
+	Parent1_Info_Complete =
 		parent1Fname &&
 		parent1Lname &&
 		parent1Email &&
 		parent1EmailConfirmed &&
-		parent1Phone
-	) {
+		parent1Phone;
+	console.log("Parent1_Info_Complete: " + Parent1_Info_Complete);
+	Parent2_Info_Complete =
+		parent2Fname &&
+		parent2Lname &&
+		parent2Email &&
+		parent2EmailConfirmed &&
+		parent2Phone;
+	console.log("Parent2_Info_Complete: " + Parent2_Info_Complete);
+
+	Mailing_Info_Complete = streetAddress && city && state && zip;
+	console.log("Mailing_Info_Complete: " + Mailing_Info_Complete);
+
+	Enrollment_Children_Info_Complete = enrollmentDay && childrenEnrolled;
+	console.log(
+		"Enrollment_Children_Info_Complete: " + Enrollment_Children_Info_Complete
+	);
+
+	if (Parent1_Info_Complete) {
 		PARENT_1_CHECK.style.border = "2px solid green";
 	} else {
 		PARENT_1_CHECK.style.border = "2px solid rgba(160, 15, 15, 0.806)";
 	}
 
-	if (
-		parent2Fname &&
-		parent2Lname &&
-		parent2Email &&
-		parent2EmailConfirmed &&
-		parent2Phone
-	) {
+	if (Parent2_Info_Complete) {
 		PARENT_2_CHECK.style.border = "2px solid green";
 	} else {
 		PARENT_2_CHECK.style.border = "2px solid rgba(160, 15, 15, 0.806)";
 	}
 
-	if (streetAddress && city && state && zip) {
+	if (Mailing_Info_Complete) {
 		MAILING_CHECK.style.border = "2px solid green";
 	} else {
 		MAILING_CHECK.style.border = "2px solid rgba(160, 15, 15, 0.806)";
 	}
 
-	if (enrollmentDay && childrenEnrolled) {
+	if (Enrollment_Children_Info_Complete) {
 		ENROLLMENT_CHECK.style.border = "2px solid green";
 	} else {
 		ENROLLMENT_CHECK.style.border = "2px solid rgba(160, 15, 15, 0.806)";
+	}
+
+	var paymentElement = document.getElementById("payment");
+	if (
+		Parent1_Info_Complete &&
+		Parent2_Info_Complete &&
+		Mailing_Info_Complete &&
+		Enrollment_Children_Info_Complete
+	) {
+		paymentElement.className = "info";
+		paymentElement.open = true; // This line will expand the details tab
+	} else {
+		paymentElement.className = "info untouchable";
+		paymentElement.open = false; // This line will collapse the details tab
 	}
 }
 

@@ -7,8 +7,11 @@
 		<title>ISCJ WES Registration</title>
 		<link rel="stylesheet" href="style.css" />
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<script src="https://www.paypal.com/sdk/js?client-id=AYSayFxbL3MMbp5l2l_trt4NHzHZ0OwtSk8mKM0pgasCKgo_3Iqp2dPLwkOAZJJt2tAexjpQKR3Cugba"></script>
+
 		<script src="funstuff.js"></script>
 		<script src="fieldconfirmations.js"></script>
+
 		<link
 			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
 			rel="stylesheet"
@@ -411,6 +414,9 @@ visibility: hidden;
 				<div id="childrenContainer"></div>
 				<hr />
 				<br />
+				<p id="payment-message" class="payment-message">
+					Complete all above fields to access the payment options.
+				</p>
 
 				<div class="info" id="costTable">
 					<h2>Payment Breakdown</h2>
@@ -449,10 +455,15 @@ visibility: hidden;
 								<td id="result">$0</td>
 							</tr>
 						</table>
+						<p style="font-size: small; text-align: center">
+							Transaction fee of 1.99% + 49 cents will be charged per
+							credit/debit card payments
+						</p>
 					</div>
 				</div>
 
-				<details id="payment" class="info">
+				<!-- untouchable -->
+				<details id="payment" class="info untouchable">
 					<summary>
 						<div style="display: flex; align-items: center">
 							<i id="accordian_arrow" class="bx bxs-down-arrow bx-tada"></i>
@@ -504,16 +515,17 @@ visibility: hidden;
 						<h4>Payment</h4>
 						<div class="payments">
 							<div id="paypal-payment-button"></div>
-							<input type="hidden" id="hidden-email-input" />
-							<div
-								id="error-message"
-								style="display: none; color: red; text-align: center"
-							></div>
+							<input type="hidden" id="hidden-email" />
+							<input type="hidden" id="hidden-id" />
 						</div>
+						<div
+							id="error-message"
+							style="display: none; color: red; text-align: center"
+						></div>
 					</div>
 				</details>
 
-				<br /><br />
+				<br />
 				<hr />
 				<div class="input-box">
 					<label
@@ -528,7 +540,7 @@ visibility: hidden;
 				</div>
 			</form>
 		</div>
-		<script src="https://www.paypal.com/sdk/js?client-id=AYSayFxbL3MMbp5l2l_trt4NHzHZ0OwtSk8mKM0pgasCKgo_3Iqp2dPLwkOAZJJt2tAexjpQKR3Cugba"></script>
+		<script src="paypal.js"></script>
 		<script src="funstuff.js"></script>
 		<script src="fieldconfirmations.js"></script>
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

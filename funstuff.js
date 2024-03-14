@@ -56,6 +56,7 @@ function fillParent2Info() {
 		document.getElementById("phone_number2").value = phoneFormat2(
 			document.getElementById("phone_number1").value
 		);
+		setTimeout(checkVariables, 0);
 	} else {
 		document.getElementById("f2name").value = "";
 		// checkparent2Fname()
@@ -68,7 +69,9 @@ function fillParent2Info() {
 		// checkEmails2()
 		document.getElementById("phone_number2").value = "";
 		phoneFormat2("");
+		setTimeout(checkVariables, 0);
 	}
+	setTimeout(checkVariables, 0);
 }
 
 function check_Field_Children() {
@@ -78,6 +81,20 @@ function check_Field_Children() {
 	} else {
 		this.style.border = "2px solid green";
 		this.style.backgroundColor = "transparent";
+	}
+}
+function checkChildFields(childNumber) {
+	var fields = ["Fname", "Lname", "DOB", "Gender", "Grade"];
+	var allFieldsFilled = fields.every(function (field) {
+		var elem = document.getElementById("child" + field + childNumber);
+		return elem.value !== "";
+	});
+
+	var childBox = document.getElementById("child" + childNumber);
+	if (allFieldsFilled) {
+		childBox.style.border = "2px solid green";
+	} else {
+		childBox.style.border = "2px solid rgba(15, 46, 160, 0.806)";
 	}
 }
 
@@ -169,13 +186,20 @@ function addEventListeners(childNumber) {
 	["Fname", "Lname", "DOB", "Gender", "Grade"].forEach(function (field) {
 		var elem = document.getElementById("child" + field + childNumber);
 		elem.setAttribute("required", "");
-		elem.addEventListener("focus", check_Field_Children);
-		elem.addEventListener("input", check_Field_Children);
+		elem.addEventListener("focus", function () {
+			check_Field_Children.call(this);
+			checkChildFields(childNumber);
+		});
+		elem.addEventListener("input", function () {
+			check_Field_Children.call(this);
+			checkChildFields(childNumber);
+		});
 	});
 	["Mname", "Allergies", "Needs"].forEach(function (field) {
 		var elem = document.getElementById("child" + field + childNumber);
 		elem.addEventListener("focus", function () {
 			this.style.border = "2px solid green";
+			checkChildFields(childNumber);
 		});
 	});
 }
@@ -199,80 +223,41 @@ function calculateCost() {
 	let x = document.getElementById("childrenenrolled").value;
 	if (x >= 3) {
 		let cost = 425 + 220 * x + 100 * x + 20 - 40 * (x - 2);
-		document.getElementById("fee").innerHTML = 425;
-		document.getElementById("tuition").innerHTML = 220 * x;
-		document.getElementById("Expansion").innerHTML = 100 * x;
-		document.getElementById("pta").innerHTML = 20;
-		document.getElementById("Discount").innerHTML = 40 * (x - 2);
-		document.getElementById("result").innerHTML = cost;
+		document.getElementById("fee").innerText = "$" + 425;
+		document.getElementById("tuition").innerText = "$" + 220 * x;
+		document.getElementById("Expansion").innerText = "$" + 100 * x;
+		document.getElementById("pta").innerText = "$" + 20;
+		document.getElementById("Discount").innerText = "$" + 40 * (x - 2);
+		document.getElementById("result").innerText = "$" + cost;
 		if (year > schoolYear || (year == schoolYear && month > 8)) {
-			document.getElementById("LateFee").innerHTML = 50;
-			var val = parseInt(document.getElementById("result").innerHTML);
-			document.getElementById("result").innerHTML = val + 50;
+			document.getElementById("LateFee").innerText = "$" + 50;
+			var val = parseInt(
+				document.getElementById("result").innerText.replace("$", "")
+			);
+			document.getElementById("result").innerText = "$" + (val + 50);
 		} else {
-			document.getElementById("LateFee").innerHTML = 0;
+			document.getElementById("LateFee").innerText = "$" + 0;
 		}
 	} else {
 		let cost = 425 + 220 * x + 100 * x + 20;
-		document.getElementById("fee").innerHTML = 425;
-		document.getElementById("tuition").innerHTML = 220 * x;
-		document.getElementById("Expansion").innerHTML = 100 * x;
-		document.getElementById("pta").innerHTML = 20;
-		document.getElementById("Discount").innerHTML = 0;
-		document.getElementById("result").innerHTML = cost;
+		document.getElementById("fee").innerText = "$" + 425;
+		document.getElementById("tuition").innerText = "$" + 220 * x;
+		document.getElementById("Expansion").innerText = "$" + 100 * x;
+		document.getElementById("pta").innerText = "$" + 20;
+		document.getElementById("Discount").innerText = "$" + 0;
+		document.getElementById("result").innerText = "$" + cost;
 		if (year > schoolYear || (year == schoolYear && month > 8)) {
-			document.getElementById("LateFee").innerHTML = 50;
-			var val = parseInt(document.getElementById("result").innerHTML);
-
-			document.getElementById("result").innerHTML = val + 50;
+			document.getElementById("LateFee").innerText = "$" + 50;
+			var val = parseInt(
+				document.getElementById("result").innerText.replace("$", "")
+			);
+			document.getElementById("result").innerText = "$" + (val + 50);
 		} else {
-			document.getElementById("LateFee").innerHTML = 0;
+			document.getElementById("LateFee").innerText = "$" + 0;
 		}
 	}
 	// document.getElementById("costTable").style.display = "block";
 }
-
-// Animation thing: https://lottiefiles.com/animations/payment-successful-5uXFkB4jix
-
-paypal
-	.Buttons({
-		style: {
-			width: "50%",
-		},
-		createOrder: function (data, actions) {
-			return actions.order.create({
-				purchase_units: [
-					{
-						amount: {
-							value: "1000.00",
-						},
-					},
-				],
-				application_context: {
-					shipping_preference: "NO_SHIPPING",
-				},
-			});
-		},
-
-		onApprove: function (data, actions) {
-			return actions.order.capture().then(function (details) {
-				console.log(details);
-				var email = details.payer.email_address;
-				document.getElementById("hidden-email-input").value = email;
-
-				document.getElementById("paypal-payment-button").innerHTML =
-					'<div style="width: 100%; height: 300px;overflow: hidden;position: relative;border-radius: 50px;"><lottie-player src="https://lottie.host/0b53a2e4-1fcf-4f95-aa1f-027d2c8bde38/Kr3qyNg5oH.json"speed=".6" background="rgb(0, 0, 128);" style="width: 150%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); " autoplay direction="1" mode="normal"></lottie-player></div>';
-			});
-		},
-		onCancel: function (data) {
-			// Show an error message in the hidden div and make it visible
-			var errorMessageDiv = document.getElementById("error-message");
-			errorMessageDiv.innerHTML =
-				"Payment was not successful. Please try again.";
-			errorMessageDiv.style.display = "block";
-		},
-	})
-	.render("#paypal-payment-button");
 
 // uncomment lines 17-30, 51 from index.php
 // uncomment the following lines
