@@ -45,28 +45,20 @@ function fillParent2Info() {
 			"parent2EmailConfirmed"
 		);
 
-		// phone_number2 = document.getElementById('phone_number2');
-		// phone_number2.value = document.getElementById('phone_number1').value;
-		// checkField(phone_number2, 'parent1Phone')
-
-		// document.getElementById('email2').value = document.getElementById('email1').value;
-		// // checkEmails2()
-		// document.getElementById('email_confirmed2').value = document.getElementById('email_confirmed1').value;
-		// // checkEmails2()
 		document.getElementById("phone_number2").value = phoneFormat2(
 			document.getElementById("phone_number1").value
 		);
 		setTimeout(checkVariables, 0);
 	} else {
 		document.getElementById("f2name").value = "";
-		// checkparent2Fname()
+
 		document.getElementById("m2name").value = "";
 		document.getElementById("l2name").value = "";
-		// checkparent2Lname()
+
 		document.getElementById("email2").value = "";
-		// checkEmails2()
+
 		document.getElementById("email_confirmed2").value = "";
-		// checkEmails2()
+
 		document.getElementById("phone_number2").value = "";
 		phoneFormat2("");
 		setTimeout(checkVariables, 0);
@@ -93,8 +85,12 @@ function checkChildFields(childNumber) {
 	var childBox = document.getElementById("child" + childNumber);
 	if (allFieldsFilled) {
 		childBox.style.border = "2px solid green";
+		console.log("all fields filled");
+		checkVariables();
 	} else {
 		childBox.style.border = "2px solid rgba(15, 46, 160, 0.806)";
+		console.log("not all fields filled");
+		checkVariables();
 	}
 }
 
@@ -204,17 +200,37 @@ function addEventListeners(childNumber) {
 	});
 }
 
+// function showChildren() {
+// 	calculateCost();
+// 	var numChildren = document.getElementById("childrenenrolled").value;
+// 	for (var i = 1; i <= 6; i++) {
+// 		document.getElementById("child" + i).style.display = "none";
+// 	}
+// 	for (var i = 1; i <= numChildren; i++) {
+// 		document.getElementById("child" + i).style.display = "block";
+// 		addEventListeners(i);
+// 	}
+// }
 function showChildren() {
 	calculateCost();
 	var numChildren = document.getElementById("childrenenrolled").value;
 	for (var i = 1; i <= 6; i++) {
-		document.getElementById("child" + i).style.display = "none";
-	}
-	for (var i = 1; i <= numChildren; i++) {
-		document.getElementById("child" + i).style.display = "block";
-		addEventListeners(i);
+		var childBox = document.getElementById("child" + i);
+		if (i <= numChildren) {
+			childBox.style.display = "block";
+			addEventListeners(i);
+			["Fname", "Lname", "DOB", "Gender", "Grade"].forEach(function (field) {
+				document.getElementById("child" + field + i).required = true;
+			});
+		} else {
+			childBox.style.display = "none";
+			["Fname", "Lname", "DOB", "Gender", "Grade"].forEach(function (field) {
+				document.getElementById("child" + field + i).required = false;
+			});
+		}
 	}
 }
+
 function calculateCost() {
 	const d = new Date();
 	schoolYear = 2024;

@@ -42,8 +42,24 @@ paypal
 				errorMessageDiv.style.display = "none";
 				document.getElementById("payment").style.border = "2px solid green";
 				document.getElementById("costTable").style.border = "2px solid green";
+
+				// Open all detail sections
+				var details = document.querySelectorAll("details");
+				details.forEach((detail) => {
+					detail.open = true;
+					detail.classList.add("untouchable");
+				});
+
+				// Disable all fields except the checkbox at the end
+				var fields = document.querySelectorAll("input, select");
+				fields.forEach((field) => {
+					if (field.type !== "checkbox") {
+						field.disabled = true;
+					}
+				});
 			});
 		},
+
 		onCancel: function (data) {
 			// Show an error message in the hidden div and make it visible
 			var errorMessageDiv = document.getElementById("error-message");

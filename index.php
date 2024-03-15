@@ -414,7 +414,7 @@ visibility: hidden;
 				<div id="childrenContainer"></div>
 				<hr />
 				<br />
-				<p id="payment-message" class="payment-message">
+				<p id="payment-message" class="payment-message-bad">
 					Complete all above fields to access the payment options.
 				</p>
 

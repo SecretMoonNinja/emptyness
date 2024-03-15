@@ -56,7 +56,6 @@ function checkField(field, fieldName) {
 	checkVariables();
 }
 
-// Define a function to add event listeners to a field
 function addListeners(field, fieldName, events) {
 	events.forEach(function (event) {
 		field.addEventListener(event, function () {
@@ -65,7 +64,6 @@ function addListeners(field, fieldName, events) {
 	});
 }
 
-// Add event listeners to the fields
 addListeners(f1name, "parent1Fname", ["focus", "input"]);
 addListeners(f1lname, "parent1Lname", ["focus", "input"]);
 addListeners(f2name, "parent2Fname", ["focus", "input", "change"]);
@@ -77,7 +75,6 @@ addListeners(zip_line, "zip", ["focus", "input"]);
 addListeners(enrollmentDay_Line, "enrollmentDay", ["focus", "input"]);
 addListeners(enrollmentChildren, "childrenEnrolled", ["focus", "input"]);
 
-// Add 'focus' event listener to 'f1mname' and 'f2mname' fields
 [f1mname, f2mname, street2].forEach(function (field) {
 	field.addEventListener("focus", function () {
 		this.style.border = "2px solid green";
@@ -86,7 +83,6 @@ addListeners(enrollmentChildren, "childrenEnrolled", ["focus", "input"]);
 
 // Parent 1 - Phone
 function phoneFormat1(input) {
-	// Remove all non-digit characters
 	input = input.replace(/\D/g, "");
 	var size = input.length;
 	if (size > 0) {
@@ -103,19 +99,15 @@ function phoneFormat1(input) {
 	var phoneNumberField = document.getElementById("phone_number1");
 	var icon1 = document.getElementById("phone1");
 
-	// Create a RegExp object with your regex
 	var regex = new RegExp("^\\(\\d{3}\\) \\d{3}-\\d{4}$");
 
-	// Check if the phone number matches the regex
 	if (!regex.test(input)) {
-		// If it doesn't match, set the border color and background color to red
 		phoneNumberField.style.borderColor = "red";
 		phoneNumberField.style.backgroundColor = "rgba(250, 168, 178, 0.5)";
 		icon1.className = "bx bx-x bx-flashing";
 		parent1Phone = false;
 		checkVariables();
 	} else {
-		// If it matches, set the border color and background color to the original values
 		phoneNumberField.style.borderColor = "green";
 		phoneNumberField.style.backgroundColor = "transparent";
 		icon1.className = "bx bxs-phone";
@@ -127,7 +119,6 @@ function phoneFormat1(input) {
 
 // Parent 2 - Phone
 function phoneFormat2(input) {
-	// Remove all non-digit characters
 	input = input.replace(/\D/g, "");
 	var size = input.length;
 	if (size > 0) {
@@ -140,23 +131,18 @@ function phoneFormat2(input) {
 		input = input.slice(0, 9) + "-" + input.slice(9);
 	}
 
-	// Get the phone number field
 	var phoneNumberField = document.getElementById("phone_number2");
 	var icon2 = document.getElementById("phone2");
 
-	// Create a RegExp object with your regex
 	var regex = new RegExp("^\\(\\d{3}\\) \\d{3}-\\d{4}$");
 
-	// Check if the phone number matches the regex
 	if (!regex.test(input)) {
-		// If it doesn't match, set the border color and background color to red
 		phoneNumberField.style.borderColor = "red";
 		phoneNumberField.style.backgroundColor = "rgba(250, 168, 178, 0.5)";
 		icon2.className = "bx bx-x bx-flashing";
 		parent2Phone = false;
 		checkVariables();
 	} else {
-		// If it matches, set the border color and background color to the original values
 		phoneNumberField.style.borderColor = "green";
 		phoneNumberField.style.backgroundColor = "transparent";
 		icon2.className = "bx bxs-phone";
@@ -185,7 +171,6 @@ function checkEmails(
 	// Create a RegExp object with your regex
 	var regex = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,}$");
 
-	// Check if the emails match and if they match the regex
 	if (
 		email == confirmedEmail &&
 		regex.test(email) &&
@@ -213,7 +198,6 @@ function checkEmails(
 	}
 }
 
-// Add event listeners to the fields
 document.getElementById("email1").addEventListener("focus", function () {
 	checkEmails(
 		"email1",
@@ -268,6 +252,23 @@ function checkVariables() {
 		parent1EmailConfirmed &&
 		parent1Phone;
 	console.log("Parent1_Info_Complete: " + Parent1_Info_Complete);
+
+	if (document.getElementById("f2name").value !== "") {
+		parent2Fname = true;
+	}
+	if (document.getElementById("l2name").value !== "") {
+		parent2Lname = true;
+	}
+	if (document.getElementById("email2").value !== "") {
+		parent2Email = true;
+	}
+	if (document.getElementById("email_confirmed2").value !== "") {
+		parent2EmailConfirmed = true;
+	}
+	if (document.getElementById("phone_number2").value !== "") {
+		parent2Phone = true;
+	}
+
 	Parent2_Info_Complete =
 		parent2Fname &&
 		parent2Lname &&
@@ -308,18 +309,40 @@ function checkVariables() {
 		ENROLLMENT_CHECK.style.border = "2px solid rgba(160, 15, 15, 0.806)";
 	}
 
+	var Children_Info_Complete = true;
+	for (var i = 1; i <= document.getElementById("childrenenrolled").value; i++) {
+		// checkChildFields(i);
+		if (
+			document.getElementById("child" + i).style.border != "2px solid green"
+		) {
+			Children_Info_Complete = false;
+			break;
+		}
+	}
+	console.log("Children_Info_Complete: " + Children_Info_Complete);
+
 	var paymentElement = document.getElementById("payment");
+	var msg = document.getElementById("payment-message");
 	if (
 		Parent1_Info_Complete &&
 		Parent2_Info_Complete &&
 		Mailing_Info_Complete &&
-		Enrollment_Children_Info_Complete
+		Enrollment_Children_Info_Complete &&
+		Children_Info_Complete
 	) {
 		paymentElement.className = "info";
-		paymentElement.open = true; // This line will expand the details tab
+		paymentElement.open = true;
+		msg.className = "payment-message-good";
+		msg.innerHTML =
+			"All fields are complete! You may now proceed to payment. Please note, once the payment is made, you will not be able to modify any of the above fields.";
+		document.getElementById("costTable").style.border = "2px solid green";
 	} else {
 		paymentElement.className = "info untouchable";
-		paymentElement.open = false; // This line will collapse the details tab
+		paymentElement.open = false;
+		msg.className = "payment-message-bad";
+		msg.innerHTML = "Complete all above fields to access the payment options.";
+		document.getElementById("costTable").style.border =
+			"2px solid rgba(160, 15, 15, 0.806)";
 	}
 }
 
