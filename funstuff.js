@@ -277,9 +277,9 @@ function calculateCost() {
 
 // uncomment lines 17-30, 51 from index.php
 // uncomment the following lines
-// document.addEventListener("DOMContentLoaded", (event) => {
-// 	document.getElementById("cover").style.animation = "spiral 2s forwards";
-// 	setTimeout(() => {
-// 		document.getElementById("content").style.visibility = "visible";
-// 	}, 2000); // Show content after 2.5 seconds
-// });
+document.addEventListener("DOMContentLoaded", (event) => {
+	document.getElementById("cover").style.animation = "spiral 2s forwards";
+	setTimeout(() => {
+		document.getElementById("content").style.visibility = "visible";
+	}, 2000); // Show content after 2.5 seconds
+});

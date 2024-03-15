@@ -17,20 +17,20 @@
 			rel="stylesheet"
 		/>
 		<style>
-			/* #cover {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-image: url("./ISCJWES3.png");
-background-size: contain;
-background-repeat: no-repeat;
-background-position: center;
-}
-#content {
-visibility: hidden;
-} */
+			#cover {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: url("./ISCJWES3.png");
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			#content {
+				visibility: hidden;
+			}
 
 			@keyframes spiral {
 				0% {
@@ -51,15 +51,15 @@ visibility: hidden;
 	</head>
 
 	<body>
-		<!-- <div id="cover"></div> -->
+		<div id="cover"></div>
 
 		<div id="content" class="wrapper">
 			<form
 				action="https://script.google.com/macros/s/AKfycbzF3R90P5dLlHdO4jBFKneB1h_1zRKWdAkNiL3jjAjBQF0uoQE-v3ObNJrSEJ2BvFvdMw/exec"
 				method="post"
 			>
-				<!-- 				<h1>ISCJ Weekend School Registration</h1> -->
-				<h1>School Registration</h1>
+				<h1>ISCJ Weekend School Registration</h1>
+				<!-- <h1>School Registration</h1> -->
 				<p>
 					Welcome to the annual enrollment for the ISCJ Weekend School. Our
 					school strives to cultivate in our students a genuine regard for our
